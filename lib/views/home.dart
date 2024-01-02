@@ -1,96 +1,162 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modernlogintute/pages/login_page.dart';
 import 'package:modernlogintute/pages/profile_page.dart';
+import 'package:modernlogintute/widgets/BottomCartSheet.dart';
+import 'package:modernlogintute/widgets/categories.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:modernlogintute/widgets/items.dart';
+import 'package:modernlogintute/widgets/popular.dart';
 import 'package:modernlogintute/components/navbar.dart';
 
 class HomePage extends StatefulWidget {
   @override
-  HomePageState createState() => HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              // Implement search action here
-            },
-            icon: Icon(Icons.search),
-          ),
-          IconButton(
-            onPressed: () {
-              // Implement cart action here
-            },
-            icon: Icon(Icons.shopping_cart),
-          ),
-          GestureDetector(
-            onTap: () {
-              showProfilePopupMenu(context);
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.account_circle),
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.pink,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Menambahkan Stack di sini
-                  Stack(
-                    children: [
-                      Image.asset(
-                        'lib/images/banner.jpg',
-                        width: 500,
-                        height: 500,
-                        fit: BoxFit.cover,
-                      ),
-                      Positioned(
-                        bottom: 220,
-                        left: 20,
-                        child: Text(
-                          'Best Food For\nFood Home',
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(right: 20, left: 15, top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    Spacer(),
+                    Container(
+                      child: badges.Badge(
+                        showBadge: true,
+                        badgeContent: Text(
+                          '3',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                        ),
+                        position: badges.BadgePosition.topEnd(top: -8, end: -8),
+                        child: InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.8,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: BottomCartSheet(),
+                                );
+                              },
+                            );
+                          },
+                          child: Icon(
+                            CupertinoIcons.cart,
+                            size: 30,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 100,
-                        left: 20,
-                        child: Text(
-                          'Lorem, ipsum dolor sit amet consectetur\n'
-                          'adipisicing elit. Aperiam \n'
-                          'accusantium perspiciatis, sapientemagni eos\n'
-                          'dolorum ex quos dolores odio',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                          ),
-                        ),
+                    ),
+                    SizedBox(width: 15),
+                    InkWell(
+                      onTap: () {
+                        showProfilePopupMenu(context);
+                      },
+                      child: Icon(
+                        Icons.account_circle,
+                        size: 30,
+                        color: Colors.white,
                       ),
-                    ],
-                  ),
-                  // Widget lainnya
-                  // ...
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Welcome",
+                      style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "What do you want to Buy?",
+                      style: TextStyle(color: Colors.white, fontSize: 30),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(15),
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.search),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      width: 250,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: "Search here...",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(Icons.filter_list),
+                  ],
+                ),
+              ),
+
+              //Products Widgets
+              Container(
+                padding: EdgeInsets.only(top: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    categories(),
+                    popular(),
+                    items(),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),

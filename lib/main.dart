@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:modernlogintute/pages/ItemPage.dart';
+import 'package:modernlogintute/pages/SplashScreen.dart';
 import 'package:modernlogintute/views/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      routes: {
+        "/": (context) => SplashScreen(),
+        "homePage": (context) => HomePage(),
+        "itemPage": (context) => ItemPage(),
+      },
     );
   }
 }

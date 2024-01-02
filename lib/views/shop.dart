@@ -61,8 +61,8 @@ class _ShopPageState extends State<ShopPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Shop'),
-        backgroundColor: Colors.green, // Change the color to match Gojek style
-        elevation: 0, // Remove shadow
+        backgroundColor: Colors.green,
+        elevation: 0,
         actions: [
           IconButton(
             onPressed: () {
@@ -93,7 +93,7 @@ class _ShopPageState extends State<ShopPage> {
           itemCount: products.length,
           itemBuilder: (context, index) {
             return Card(
-              elevation: 5, // Add slight elevation
+              elevation: 5,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
